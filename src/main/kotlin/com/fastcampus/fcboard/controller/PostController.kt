@@ -1,6 +1,10 @@
 package com.fastcampus.fcboard.controller
 
-import com.fastcampus.fcboard.controller.dto.*
+import com.fastcampus.fcboard.controller.dto.PostCreateRequest
+import com.fastcampus.fcboard.controller.dto.PostDetailResponse
+import com.fastcampus.fcboard.controller.dto.PostSearchRequest
+import com.fastcampus.fcboard.controller.dto.PostSummaryResponse
+import com.fastcampus.fcboard.controller.dto.PostUpdateRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.DeleteMapping
