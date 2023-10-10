@@ -42,11 +42,14 @@ class PostServiceTest(
     given("게시글 수정시") {
         val saved = postRepository.save(Post(title = "title", content = "content", createdBy = "kane"))
         When("정상 수정시") {
-            val updatedId = postService.updatePost(saved.id, PostUpdateRequestDto(
-                title = "update title",
-                content = "update content",
-                updatedBy = "kane"
-            ))
+            val updatedId = postService.updatePost(
+                saved.id,
+                PostUpdateRequestDto(
+                    title = "update title",
+                    content = "update content",
+                    updatedBy = "kane"
+                )
+            )
             val item = postRepository.findByIdOrNull(updatedId)
             then("게시글이 정상적으로 수정됨을 확인한다") {
                 saved.id shouldBe updatedId
@@ -58,20 +61,30 @@ class PostServiceTest(
         }
         When("게시글이 없을 때") {
             then("게시글을 찾을수 없다라는 예외가 발생한다.") {
-                shouldThrow<PostNotFoundException> { postService.updatePost(9999L, PostUpdateRequestDto(
-                    title = "update title",
-                    content = "update content",
-                    updatedBy = "update kane"
-                )) }
+                shouldThrow<PostNotFoundException> {
+                    postService.updatePost(
+                        9999L,
+                        PostUpdateRequestDto(
+                            title = "update title",
+                            content = "update content",
+                            updatedBy = "update kane"
+                        )
+                    )
+                }
             }
         }
         When("작성자가 동일하지 않으면") {
             then("수정할 수 없는 게시물 입니다. 예외가 발생한다.") {
-                shouldThrow<PostNotUpdatableException> { postService.updatePost(1L, PostUpdateRequestDto(
-                    title = "update title",
-                    content = "update content",
-                    updatedBy = "update kane"
-                )) }
+                shouldThrow<PostNotUpdatableException> {
+                    postService.updatePost(
+                        1L,
+                        PostUpdateRequestDto(
+                            title = "update title",
+                            content = "update content",
+                            updatedBy = "update kane"
+                        )
+                    )
+                }
             }
         }
     }
@@ -88,7 +101,6 @@ class PostServiceTest(
             val saved2 = postRepository.save(Post(title = "title", content = "content", createdBy = "kane"))
             then("삭제할 수 없는 게시물 입니다. 예외가 발생한다.") {
                 shouldThrow<PostNotDeletableException> { postService.deletePost(saved2.id, "kane2") }
-
             }
         }
     }
