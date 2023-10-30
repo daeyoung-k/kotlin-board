@@ -147,8 +147,6 @@ class PostServiceTest(
                 postPage.number shouldBe 0
                 postPage.size shouldBe 5
                 postPage.content.size shouldBe 5
-                postPage.content[0].title shouldContain "title1"
-                postPage.content[0].createdBy shouldContain "kane1"
             }
         }
         When("타이틀로 검색") {
@@ -157,18 +155,18 @@ class PostServiceTest(
                 postPage.number shouldBe 0
                 postPage.size shouldBe 5
                 postPage.content.size shouldBe 5
-                postPage.content[0].title shouldContain "title1"
-                postPage.content[0].createdBy shouldContain "kane1"
+                postPage.content[0].title shouldContain "title10"
+                postPage.content[0].createdBy shouldBe "kane10"
             }
         }
         When("작성자로 검색") {
-            val postPage = postService.findPageBy(PageRequest.of(0, 5), PostSearchRequestDto(title = "kane1"))
+            val postPage = postService.findPageBy(PageRequest.of(0, 5), PostSearchRequestDto(createdBy = "kane10"))
             then("작성자에 해당하는 게시글이 반환된다.") {
                 postPage.number shouldBe 0
                 postPage.size shouldBe 5
-                postPage.content.size shouldBe 5
-                postPage.content[0].title shouldContain "title1"
-                postPage.content[0].createdBy shouldBe "kane1"
+                postPage.content.size shouldBe 1
+                postPage.content[0].title shouldContain "title10"
+                postPage.content[0].createdBy shouldBe "kane10"
             }
         }
     }
