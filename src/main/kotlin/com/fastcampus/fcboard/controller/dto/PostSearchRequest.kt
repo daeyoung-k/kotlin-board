@@ -8,3 +8,8 @@ data class PostSearchRequest(
     @RequestParam
     val createdBy: String?,
 )
+
+fun PostSearchRequest.toDto() = com.fastcampus.fcboard.service.dto.PostSearchRequestDto(
+    title = title,
+    createdBy = createdBy
+)
