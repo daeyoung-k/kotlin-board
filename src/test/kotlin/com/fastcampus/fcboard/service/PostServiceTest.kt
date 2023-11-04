@@ -69,7 +69,6 @@ class PostServiceTest(
                     updatedBy = "kane"
                 )
             )
-            val item = postRepository.findByIdOrNull(updatedId)
             then("게시글이 정상적으로 수정됨을 확인한다") {
                 saved.id shouldBe updatedId
                 val updated = postRepository.findByIdOrNull(updatedId)
