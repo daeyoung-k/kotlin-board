@@ -7,6 +7,8 @@ data class PostSearchRequest(
     val title: String?,
     @RequestParam
     val createdBy: String?,
+    @RequestParam
+    val tag: String?,
 )
 
 fun PostSearchRequest.toDto() = com.fastcampus.fcboard.service.dto.PostSearchRequestDto(

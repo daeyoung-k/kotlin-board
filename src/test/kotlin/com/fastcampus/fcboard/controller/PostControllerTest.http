@@ -5,17 +5,19 @@ Content-Type: application/json
 {
     "title": "title",
     "content": "content",
-    "createdBy": "createdBy"
+    "createdBy": "createdBy",
+    "tags": ["tag1", "tag2"]
 }
 
 ### 게시글 수정
-PUT /localhost:8080/posts/11
+PUT /localhost:8080/posts/6
 Content-Type: application/json
 
 {
     "title": "title",
     "content": "content",
-    "updatedBy": "createdBy"
+    "updatedBy": "createdBy",
+    "tags": ["tag1", "tag2"]
 }
 
 ### 게시글 삭제
@@ -23,7 +25,7 @@ DELETE /localhost:8080/posts/1?createdBy=kane
 
 
 ### 게시글 상세조회
-GET /localhost:8080/posts/1
+GET /localhost:8080/posts/6
 
 ### 게시글 목록조회
-GET /localhost:8080/posts?page=0&size=10&title=title&createdBy=kane
+GET /localhost:8080/posts?page=0&size=10&tag=kotlin
