@@ -28,6 +28,7 @@ class PostServiceTest(
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
     private val tagRepository: TagRepository,
+    private val likeService: LikeService,
 ) : BehaviorSpec({
     beforeSpec {
         postRepository.saveAll(
@@ -186,6 +187,9 @@ class PostServiceTest(
                 Tag(name = "태그3", post = saved, createdBy = "kane")
             )
         )
+        likeService.createLike(saved.id, "kane1")
+        likeService.createLike(saved.id, "kane2")
+        likeService.createLike(saved.id, "kane3")
         When("정상 조회시") {
             val post = postService.getPost(saved.id)
             then("게시글의 내용이 정상적으로 반환됨을 확인한다") {
@@ -199,6 +203,9 @@ class PostServiceTest(
                 post.tags[0] shouldBe "태그1"
                 post.tags[1] shouldBe "태그2"
                 post.tags[2] shouldBe "태그3"
+            }
+            then("좋아요 개수가 조회됨을 확인한다.") {
+                post.likeCount shouldBe 3
             }
         }
         When("게시글이 없을 때") {
@@ -265,6 +272,19 @@ class PostServiceTest(
                 postPage.content[0].title shouldBe "title9"
                 postPage.content[1].title shouldBe "title8"
                 postPage.content[2].title shouldBe "title7"
+            }
+        }
+        When("좋아요가 추가되었을 때") {
+            val postPage = postService.findPageBy(PageRequest.of(0, 5), PostSearchRequestDto(tag = "태그5"))
+            postPage.content.forEach {
+                likeService.createLike(it.id, "kane1")
+                likeService.createLike(it.id, "kane2")
+            }
+            val likePostPage = postService.findPageBy(PageRequest.of(0, 5), PostSearchRequestDto(tag = "태그5"))
+            then("좋아요 개수가 정상적으로 조회됨을 확인한다.") {
+                likePostPage.content.forEach {
+                    it.likeCount shouldBe 2
+                }
             }
         }
     }
