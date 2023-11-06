@@ -13,5 +13,6 @@ data class PostSearchRequest(
 
 fun PostSearchRequest.toDto() = com.fastcampus.fcboard.service.dto.PostSearchRequestDto(
     title = title,
-    createdBy = createdBy
+    createdBy = createdBy,
+    tag = tag
 )
