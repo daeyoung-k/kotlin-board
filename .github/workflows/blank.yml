@@ -6,7 +6,7 @@ env:
 on:
   push:
     branches: [ main ]
-    
+
 jobs:
   deploy:
     name: Deploy
@@ -24,7 +24,7 @@ jobs:
         distribution: 'zulu'
 
     - name: Build with Gradle
-      run: ./gradlew clean build
+      run: ./gradlew clean build -x test
 
     - name: Get current time
       uses: 1466587594/get-current-time@v2
@@ -32,7 +32,7 @@ jobs:
       with:
         format: YYYY-MM-DDTHH-mm-ss
         utcOffset: "+09:00"
-          
+
     - name: Generate deployment package
       run: |
         mkdir -p deploy

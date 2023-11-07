@@ -11,3 +11,8 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+    cache:
+        type: redis
+        redis:
+            host: kane-redis-0001-001.euigqn.0001.apn2.cache.amazonaws.com
+            port: 6379
